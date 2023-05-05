@@ -12,7 +12,7 @@ with open('output_file.csv', 'r') as file:
     reader = csv.reader(file)
     words = [row[0].lower() for row in reader]
 
-random_word = random.choice(words).upper()
+random_word = random.choice(words)
 print(random_word)
 guessed_letters = []
 word_state = "_" * len(random_word)
@@ -25,7 +25,7 @@ num_guesses = 0
 def save_letter(letter):
     global guessed_letters, word_state, random_word, num_guesses
     guessed_letters.append(letter)
-    guessing_letters.config(text=f"Guessed Letters: {' '.join(guessed_letters)}", font='arial') # update guessed letters label
+    guessing_letters.config(text=f"Guessed Letters: {' '.join(guessed_letters).upper()}", font='arial') # update guessed letters label
     print(guessed_letters)
     guess = letter.lower()
 
@@ -36,11 +36,11 @@ def save_letter(letter):
         new_word_state = ""
         for i in range(len(random_word)):
             if guess == random_word[i]:
-                new_word_state += guess.upper()
+                new_word_state += guess
             else:
                 new_word_state += word_state[i]
         word_state = new_word_state
-        word_to_guess.config(text=f'The word to guess is: {new_word_state}', font='arial')
+        word_to_guess.config(text=f'The word to guess is: {new_word_state.upper()}', font='arial')
 
         if guess in random_word:
             game_status.config(text=f'Status: Correct!', font='arial')
